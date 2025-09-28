@@ -11,7 +11,7 @@ import Header from "./src/Components/Header";
 import Body from "./src/Components/Body";
 import Contact from "./src/Components/Contact";
 import DishesPage from "./src/Components/DishesPage";
-import About from "./src/Components/About";
+// import About from "./src/Components/About";
 import { UserContext } from "./src/utils/Context/useContext";
 import { Provider } from "react-redux";
 import appStore from "./src/utils/Redux/store";
@@ -46,8 +46,11 @@ function AppLayout() {
 }
 
 // const About = lazy(()=>import("./src/Components/About"))
-// <Suspense fallback = {<h1>Loadin...</h1>}><About/></Suspense>
-//const About = lazy(()=>import("./src/Components/About"))
+
+const Aboutjibb = lazy(() => import("./src/Components/About"));
+<Suspense fallback={<h1>Loadin...</h1>}>
+  <Aboutjibb />
+</Suspense>;
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -55,7 +58,7 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/about",
-        element: <About />,
+        element: <Aboutjibb />,
       },
       {
         path: "/",

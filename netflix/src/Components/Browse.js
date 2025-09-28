@@ -1,7 +1,17 @@
 import React from "react";
-
+import Header from "./Header";
+import useNowPlayingMovies from "./CutsomHooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import Secondarycontainer from "./Secondarycontainer";
 const Browse = () => {
-  return <div>Browse</div>;
+  useNowPlayingMovies();
+  return (
+    <div className="flex flex-col gap-5">
+      <Header />
+      <MainContainer />
+      <Secondarycontainer />
+    </div>
+  );
 };
 
 export default Browse;
