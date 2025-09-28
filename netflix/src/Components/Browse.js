@@ -6,7 +6,11 @@ import Secondarycontainer from "./Secondarycontainer";
 import { usePopularMovies } from "./CutsomHooks/usePopularMovies";
 import useTopRated from "./CutsomHooks/useToprated";
 import useUpComingMovies from "./CutsomHooks/useUpcomingMovies";
+import GptMainContainer from "./GptMainContainer";
+import { useSelector } from "react-redux";
 const Browse = () => {
+  const isGptflag = useSelector((store) => store.gptSlice.gptFlag);
+  console.log("Browse", isGptflag);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRated();
@@ -15,8 +19,14 @@ const Browse = () => {
   return (
     <div className="flex flex-col ">
       <Header />
-      <MainContainer />
-      <Secondarycontainer />
+      {isGptflag ? (
+        <GptMainContainer />
+      ) : (
+        <>
+          <MainContainer />
+          <Secondarycontainer />
+        </>
+      )}
     </div>
   );
 };
