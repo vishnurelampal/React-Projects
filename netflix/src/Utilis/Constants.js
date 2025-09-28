@@ -12,3 +12,5 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhODMzNGQ3NzJhNzE3ZGI1OGQ4ZDIzOTI2NjBiOTI4MyIsIm5iZiI6MTc1ODk3OTk1My4yNzgsInN1YiI6IjY4ZDdlNzcxYjQ1OWMyMTQyODJkZTBhNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.10IAA_CQZUbLq0vVYG-FvZO1F3QhVnJ9Ke1zcslULY0",
   },
 };
+
+export const movieCardPoster = "https://image.tmdb.org/t/p/w500/";
