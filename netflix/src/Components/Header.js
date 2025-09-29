@@ -12,6 +12,7 @@ import { setGptFlag } from "../Utilis/Redux/gptSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isGptflag = useSelector((store) => store.gptSlice.gptFlag);
   const loggedIn = useSelector((store) => store.user);
   useEffect(() => {
     const unSuscribe = onAuthStateChanged(auth, (user) => {
@@ -42,11 +43,11 @@ const Header = () => {
     dispatch(setGptFlag());
   }
   return (
-    <div className="absolute z-50 flex justify-between w-screen bg-gradient-to-b from-black">
+    <div className="absolute z-50 flex justify-between w-screen bg-gradient-to-b from-black/50 to-transparent">
       <img className="px-8 py-4 w-[250px]" src={netflixName} alt="logo" />
       <div className="w-4/12 flex flex-row gap-7 self-center pl-10">
         <select>
-          <option value="en" className="bg-black text-white">
+          <option value="en" className=" text-white">
             EN
           </option>
         </select>
@@ -54,7 +55,7 @@ const Header = () => {
           className="text-white p-2 list-none font-semibold rounded-lg hover:bg-gray-500 hover:cursor-pointer"
           onClick={handleGptClick}
         >
-          {loggedIn ? "Gpt Search" : ""}
+          {loggedIn ? (isGptflag ? "Home" : "Search") : ""}
         </li>
         <li className="list-none text-white w-15 h-15 p-2 rounded-lg hover:bg-gray-500 hover:cursor-pointer">
           {loggedIn ? "Vishnu" : "Guest"}

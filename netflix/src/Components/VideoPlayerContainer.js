@@ -5,7 +5,7 @@ const VideoPlayerContainer = ({ movieSelected }) => {
   useTrailerPlaying(movieSelected);
   const trailerPlaying = useSelector((store) => store.movieSlice.movieTrailer);
   return (
-    <div className="w-screen z-0 ">
+    <div className="w-screen z-0 top-0">
       <iframe
         className="w-screen aspect-video"
         src={`https://www.youtube.com/embed/${trailerPlaying?.key}?autoplay=1&mute=1`}

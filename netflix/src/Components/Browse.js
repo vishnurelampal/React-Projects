@@ -10,7 +10,6 @@ import GptMainContainer from "./GptMainContainer";
 import { useSelector } from "react-redux";
 const Browse = () => {
   const isGptflag = useSelector((store) => store.gptSlice.gptFlag);
-  console.log("Browse", isGptflag);
   useNowPlayingMovies();
   usePopularMovies();
   useTopRated();

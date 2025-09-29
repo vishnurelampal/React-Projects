@@ -14,3 +14,11 @@ export const API_OPTIONS = {
 };
 
 export const movieCardPoster = "https://image.tmdb.org/t/p/w500/";
+
+export const GPT_KEY =
+  "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";
+export const gptBgImage = "https://wallpaperaccess.com/full/288727.jpg";
+export const gptTestQuery1 =
+  "Act as a movie recommender and provide 5 best matches for the input :";
+export const gptTestQuery2 =
+  "and give the response in this format only: Movie1, Movie2, Movie3, Movie4, Movie5";

@@ -4,7 +4,7 @@ import GptResultsContainer from "./GptResultsContainer";
 
 const GptMainContainer = () => {
   return (
-    <div className="mt-[20%]">
+    <div className="">
       <GptSearchContainer />
       <GptResultsContainer />
     </div>
