@@ -7,7 +7,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { addUser } from "../Utilis/Redux/userSlice";
 import { signOut } from "firebase/auth";
 import { netflixName, userImage } from "../Utilis/Constants";
-import { setGptFlag } from "../Utilis/Redux/gptSlice";
+import { setGptFlag, setGptFlagFalse } from "../Utilis/Redux/gptSlice";
+import { clearAllMovies } from "../Utilis/Redux/movieslicer";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const Header = () => {
       } else {
         console.log("loggedOut");
         dispatch(removeUser());
+        dispatch(setGptFlagFalse());
+        dispatch(clearAllMovies());
         navigate("/");
       }
     });
@@ -43,20 +46,26 @@ const Header = () => {
     dispatch(setGptFlag());
   }
   return (
-    <div className="absolute z-50 flex justify-between w-screen bg-gradient-to-b from-black/50 to-transparent">
-      <img className="px-8 py-4 w-[250px]" src={netflixName} alt="logo" />
-      <div className="w-4/12 flex flex-row gap-7 self-center pl-10">
+    <div className="absolute z-50 flex justify-between w-full bg-gradient-to-b from-black">
+      <img
+        className=" w-[200px] px-8 py-4 md:w-[250px]"
+        src={netflixName}
+        alt="logo"
+      />
+      <div className=" w-auto flex flex-row gap:5 md:gap-7 self-center  md:pl-10">
         <select>
           <option value="en" className=" text-white">
             EN
           </option>
         </select>
-        <li
-          className="text-white p-2 list-none font-semibold rounded-lg hover:bg-gray-500 hover:cursor-pointer"
-          onClick={handleGptClick}
-        >
-          {loggedIn ? (isGptflag ? "Home" : "Search") : ""}
-        </li>
+        {loggedIn && (
+          <li
+            className="text-white p-2 list-none font-semibold rounded-lg hover:bg-gray-500 hover:cursor-pointer"
+            onClick={handleGptClick}
+          >
+            {isGptflag ? "Home" : "Search"}
+          </li>
+        )}
         <li className="list-none text-white w-15 h-15 p-2 rounded-lg hover:bg-gray-500 hover:cursor-pointer">
           {loggedIn ? "Vishnu" : "Guest"}
         </li>

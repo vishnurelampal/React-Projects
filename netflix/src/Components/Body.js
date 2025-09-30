@@ -10,7 +10,7 @@ const appRouter = createBrowserRouter([
 
 const Body = () => {
   return (
-    <div>
+    <div className="h-screen w-screen">
       <RouterProvider router={appRouter} />
     </div>
   );

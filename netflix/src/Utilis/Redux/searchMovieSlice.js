@@ -8,7 +8,10 @@ const searchMovieSlice = createSlice({
     addSearchResults: (state, action) => {
       state.searchMovieList = action.payload;
     },
+    clearSearchResult: (state) => {
+      state.searchMovieList = [];
+    },
   },
 });
-export const { addSearchResults } = searchMovieSlice.actions;
+export const { addSearchResults, clearSearchResult } = searchMovieSlice.actions;
 export default searchMovieSlice.reducer;

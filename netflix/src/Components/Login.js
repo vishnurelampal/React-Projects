@@ -125,20 +125,24 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div className="w-screen">
       <Header />
-      <div className="relative ">
-        <div className="w-full h-full " id="backGroundDiv">
-          <img src={Logo} alt="logo" />
+      <div className="relative h-screen w-screen">
+        <div className="" id="backGroundDiv">
+          <img
+            src={Logo}
+            alt="logo "
+            className="object-cover w-screen h-screen"
+          />
         </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
           }}
           id="LoginDiv"
-          className="h-auto text-white bg-opacity-80 p-10 absolute top-1/2 left-1/4 translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 w-3/12 bg-black "
+          className=" top-[20%] w-full  md:top-1/2 md:left-1/4 md:translate-x-1/2 md:-translate-y-1/2  md:w-3/12 md:h-auto text-white bg-opacity-80 p-10 absolute  flex flex-col gap-3 bg-black "
         >
-          <h1 className="font-bold text-white text-4xl mb-3">
+          <h1 className="text-2xl font-bold text-white md:text-4xl mb-3">
             {signUpFlow ? "Sign Up" : "Sign In"}
           </h1>
           {signUpFlow ? (
@@ -265,7 +269,7 @@ const Login = () => {
           )}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

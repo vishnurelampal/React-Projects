@@ -8,7 +8,10 @@ const gptSlice = createSlice({
     setGptFlag: (state) => {
       state.gptFlag = !state.gptFlag;
     },
+    setGptFlagFalse: (state) => {
+      state.gptFlag = false;
+    },
   },
 });
-export const { setGptFlag } = gptSlice.actions;
+export const { setGptFlag, setGptFlagFalse } = gptSlice.actions;
 export default gptSlice.reducer;

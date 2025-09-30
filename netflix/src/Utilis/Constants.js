@@ -7,16 +7,12 @@ export const userImage =
 export const API_OPTIONS = {
   method: "GET",
   headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhODMzNGQ3NzJhNzE3ZGI1OGQ4ZDIzOTI2NjBiOTI4MyIsIm5iZiI6MTc1ODk3OTk1My4yNzgsInN1YiI6IjY4ZDdlNzcxYjQ1OWMyMTQyODJkZTBhNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.10IAA_CQZUbLq0vVYG-FvZO1F3QhVnJ9Ke1zcslULY0",
+    Authorization: "Bearer " + process.env.React_APP_API_KEY,
   },
 };
 
-export const movieCardPoster = "https://image.tmdb.org/t/p/w500/";
+export const movieCardPoster = "https://image.tmdb.org/t/p/w200/";
 
-export const GPT_KEY =
-  "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";
 export const gptBgImage = "https://wallpaperaccess.com/full/288727.jpg";
 export const gptTestQuery1 =
   "Act as a movie recommender and provide 5 best matches for the input :";
