@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
-import { API_OPTIONS, gptBgImage } from "../Utilis/Constants";
-import { addSearchResults } from "../Utilis/Redux/searchMovieSlice";
+import { API_OPTIONS, gptBgImage } from "../../Utilis/Constants";
+import {
+  addSearchResults,
+  checkIsSearched,
+} from "../../Utilis/Redux/searchMovieSlice";
 import { useDispatch } from "react-redux";
 
 const GptSearchContainer = () => {
@@ -19,6 +22,7 @@ const GptSearchContainer = () => {
       (movies) => movies.poster_path !== null
     );
     dispatch(addSearchResults(sortedResults));
+    dispatch(checkIsSearched("Y"));
   }
   return (
     <div className="w-screen  flex flex-col justify-center relative items-center h-screen">
@@ -27,7 +31,7 @@ const GptSearchContainer = () => {
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="z-50 top-1/4 absolute"
+        className="z-50 top-1/4 absolute flex flex-row w-8/12 justify-center items-center"
       >
         <input
           ref={searchInput}

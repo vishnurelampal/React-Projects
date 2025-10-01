@@ -1,5 +1,5 @@
 import React from "react";
-import useTrailerPlaying from "./CutsomHooks/useTrailerPlaying";
+import useTrailerPlaying from "../CutsomHooks/useTrailerPlaying";
 import { useSelector } from "react-redux";
 const VideoPlayerContainer = ({ movieSelected }) => {
   useTrailerPlaying(movieSelected);

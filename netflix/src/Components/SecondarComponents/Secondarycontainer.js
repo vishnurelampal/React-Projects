@@ -15,8 +15,8 @@ function Secondarycontainer() {
 
   if (!nowPlayingMovie) return;
   return (
-    <div className=" relative z-50 bg-black  ">
-      <div className="-mt-72 pl-16 ">
+    <div className="relative z-50  bg-black  h-[calc(100vh+50px)] md:h-screen ">
+      <div className="pl-5 -mt-12 md:-mt-72 md:pl-16 overflow-y-scroll ">
         <MovieListContainer title={"Now Playing"} movies={nowPlayingMovie} />
         <MovieListContainer title={"Popular Movies"} movies={popularMovies} />
         <MovieListContainer title={"Top Rated"} movies={topRatedMovies} />

@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
-import VideoTitle from "./VideoTitle";
-import VideoPlayerContainer from "./VideoPlayerContainer";
+import React from "react";
+import VideoTitle from "../Components/VideoPlayerComponents/VideoTitle";
+import VideoPlayerContainer from "../Components/VideoPlayerComponents/VideoPlayerContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSearchResult } from "../Utilis/Redux/searchMovieSlice";
 const randomIndex = Math.floor(Math.random() * 15);

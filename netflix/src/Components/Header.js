@@ -9,6 +9,7 @@ import { signOut } from "firebase/auth";
 import { netflixName, userImage } from "../Utilis/Constants";
 import { setGptFlag, setGptFlagFalse } from "../Utilis/Redux/gptSlice";
 import { clearAllMovies } from "../Utilis/Redux/movieslicer";
+import { checkIsSearched } from "../Utilis/Redux/searchMovieSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Header = () => {
         dispatch(removeUser());
         dispatch(setGptFlagFalse());
         dispatch(clearAllMovies());
+        dispatch(checkIsSearched("N"));
         navigate("/");
       }
     });
@@ -48,7 +50,7 @@ const Header = () => {
   return (
     <div className="absolute z-50 flex justify-between w-full bg-gradient-to-b from-black">
       <img
-        className=" w-[200px] px-8 py-4 md:w-[250px]"
+        className=" w-[120px] pl-2 pr-4 py-2 md:pr-8 md:py-4 md:w-[250px]"
         src={netflixName}
         alt="logo"
       />
@@ -60,17 +62,17 @@ const Header = () => {
         </select>
         {loggedIn && (
           <li
-            className="text-white p-2 list-none font-semibold rounded-lg hover:bg-gray-500 hover:cursor-pointer"
+            className="text-white p-2 list-none font-semibold rounded-lg  md:hover:bg-gray-500 hover:cursor-pointer"
             onClick={handleGptClick}
           >
             {isGptflag ? "Home" : "Search"}
           </li>
         )}
-        <li className="list-none text-white w-15 h-15 p-2 rounded-lg hover:bg-gray-500 hover:cursor-pointer">
+        <li className="list-none text-white w-15 h-15 p-2 rounded-lg md:hover:bg-gray-500 hover:cursor-pointer">
           {loggedIn ? "Vishnu" : "Guest"}
         </li>
         <li
-          className="text-white list-none font-semibold p-2 rounded-lg hover:bg-gray-500 hover:cursor-pointer"
+          className="text-white list-none font-semibold p-2 rounded-lg md:hover:bg-gray-500 hover:cursor-pointer"
           onClick={handleSignOut}
         >
           {loggedIn ? "Sign Out" : "Sign In"}

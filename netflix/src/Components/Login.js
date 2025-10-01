@@ -47,7 +47,7 @@ const Login = () => {
       emailRef.current.value,
       passwordRef.current.value
     );
-    console.log(error);
+
     if (error.errType === "B") {
       setErrorHandler((temp) => ({
         ...temp,
@@ -107,7 +107,6 @@ const Login = () => {
         })
         .catch((error) => {});
     } else {
-      console.log("Login from Login Page");
       signInWithEmailAndPassword(
         auth,
         emailRef.current.value,
@@ -115,12 +114,9 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
           navigator("/browse");
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => {});
     }
   }
 
