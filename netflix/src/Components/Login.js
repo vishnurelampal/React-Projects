@@ -116,7 +116,13 @@ const Login = () => {
           const user = userCredential.user;
           navigator("/browse");
         })
-        .catch((error) => {});
+        .catch((error) => {
+          setErrorHandler((temp) => ({
+            ...temp,
+            E: true,
+            Emsg: "Invalid Email or Password",
+          }));
+        });
     }
   }
 

@@ -71,12 +71,14 @@ const Header = () => {
         <li className="list-none text-white w-15 h-15 p-2 rounded-lg md:hover:bg-gray-500 hover:cursor-pointer">
           {loggedIn ? "Vishnu" : "Guest"}
         </li>
-        <li
-          className="text-white list-none font-semibold p-2 rounded-lg md:hover:bg-gray-500 hover:cursor-pointer"
-          onClick={handleSignOut}
-        >
-          {loggedIn ? "Sign Out" : "Sign In"}
-        </li>
+        {loggedIn && (
+          <li
+            className="text-white list-none font-semibold p-2 rounded-lg md:hover:bg-gray-500 hover:cursor-pointer"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </li>
+        )}
       </div>
     </div>
   );
