@@ -7,7 +7,7 @@ const GptResultsContainer = () => {
 
   if (searchMovie.length === 0 && isSearched === "Y")
     return (
-      <div className="absolute top-[40%] w-full px-4 text-white bg-gradient-to-r from-black to-transparent">
+      <div className="absolute top-[40%] w-full px-4 text-white bg-gradient-to-r from-black to-transparent ">
         No Results Found
       </div>
     );
