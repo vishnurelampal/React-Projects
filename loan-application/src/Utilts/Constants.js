@@ -1,3 +1,4 @@
+import * as Yup from "yup";
 const inputFields = [
   { type: "text", placeholder: "First Name" },
   { type: "text", placeholder: "Middle Name" },
@@ -29,10 +30,53 @@ const occupationFields = [
   { type: "text", placeholder: "Source of Other Income" },
   { type: "text", placeholder: "Are you a salaried employee?" },
 ];
+const arraysort = [
+  ...inputFields.map((item) => item.placeholder),
+  ...addressFields.map((item) => item.placeholder),
+];
+const validationSchema = Yup.object(
+  arraysort.reduce((acc, curr) => {
+    if (curr == "Mobile Number") {
+      acc[curr] = Yup.string()
+        .matches(/^[0-9]{10}$/, "Mobile Number must be 10 digits")
+        .required(`${curr} is required !`);
+      return acc;
+    } else if (curr == "Date Of Birth") {
+      acc[curr] = Yup.date()
+        .max(
+          new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
+          "You must be at least 18 years old!"
+        )
+        .required(`${curr} is required!`);
+      return acc;
+    } else {
+      acc[curr] =
+        curr == "E-mail"
+          ? Yup.string()
+              .email("Invalid format !")
+              .required(`${curr} is required !`)
+          : Yup.string().required(`${curr} is required !`);
+      return acc;
+    }
+  }, {})
+);
+const occValidationSchema = Yup.object(
+  occupationFields.reduce((acc, curr) => {
+    acc[curr.placeholder] = Yup.string().required(
+      `${curr.placeholder} is required !`
+    );
+    return acc;
+  }, {})
+);
+const arraysortOcc = [...occupationFields.map((item) => item.placeholder)];
 export {
   inputFields,
   addressFields,
   CountryArray,
   occupationFields,
   emplyomentStatus,
+  arraysort,
+  validationSchema,
+  arraysortOcc,
+  occValidationSchema,
 };

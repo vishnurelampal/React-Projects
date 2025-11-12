@@ -3,7 +3,6 @@ import BasicDetails from "./BasicDetails";
 import LoansDetails from "./LoansDetails";
 import OccupationDetails from "./OccupationDetails";
 import ProgressionBar from "./ProgressionBar";
-import Footer from "./Footer";
 
 const Body = () => {
   const [proceed, setPrcoceed] = useState(0);
@@ -19,13 +18,24 @@ const Body = () => {
   }
   return (
     <div>
-      <div className="border border-[#EAEAEA] m-5 mr-10 rounded-xl h-full overflow-y-auto">
+      <div className="border border-[#EAEAEA] m-5 mr-10 rounded-xl h-[calc(100vh-150px)] overflow-y-auto">
         <ProgressionBar proceed={proceed} />
-        <BasicDetails proceed={proceed} />
-        <LoansDetails proceed={proceed} />
-        <OccupationDetails proceed={proceed} />
+        <BasicDetails
+          proceed={proceed}
+          handleProceed={handleProceed}
+          handleCancel={handleCancel}
+        />
+        <LoansDetails
+          proceed={proceed}
+          handleProceed={handleProceed}
+          handleCancel={handleCancel}
+        />
+        <OccupationDetails
+          proceed={proceed}
+          handleProceed={handleProceed}
+          handleCancel={handleCancel}
+        />
       </div>
-      <Footer handleProceed={handleProceed} handleCancel={handleCancel} />
     </div>
   );
 };

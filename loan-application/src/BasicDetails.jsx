@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import InputWithLabel from "./InputWithLabel";
 import DropDownWithLabel from "./DropDownWithLabel";
-import { inputFields, addressFields, CountryArray } from "./Utilts/Constants";
+import {
+  inputFields,
+  addressFields,
+  CountryArray,
+  arraysort,
+  validationSchema,
+} from "./Utilts/Constants";
 import { useFormik } from "formik";
-const BasicDetails = ({ proceed }) => {
-  const arraysort = [
-    ...inputFields.map((item) => item.placeholder),
-    ...addressFields.map((item) => item.placeholder),
-  ];
+
+import Footer from "./Footer";
+const BasicDetails = ({ proceed, handleProceed, handleCancel }) => {
   const formik = useFormik({
     initialValues: arraysort.reduce((acc, curr) => {
       acc[curr] = "";
@@ -16,17 +20,7 @@ const BasicDetails = ({ proceed }) => {
     onSubmit: (values) => {
       console.log(values);
     },
-    validate: (value) => {
-      let error = {};
-      if (!value["First Name"]) {
-        error["First Name"] = "Required";
-      }
-      if (!value["Last Name"]) {
-        error["Last Name"] = "Required Last name";
-      }
-
-      return error;
-    },
+    validationSchema,
   });
 
   if (proceed !== 0) {
@@ -35,6 +29,16 @@ const BasicDetails = ({ proceed }) => {
     }
     return null;
   }
+  const GoForward = () => {
+    for (const key in formik.errors) {
+      if (formik.errors[key]) return;
+    }
+    handleProceed();
+    //  console.log(formik.values);
+  };
+  const GoBackward = () => {
+    handleCancel();
+  };
 
   return (
     <div className="h-full p-5">
@@ -45,10 +49,9 @@ const BasicDetails = ({ proceed }) => {
       >
         {inputFields.map((fields) => (
           <InputWithLabel
-            key={fields.label}
+            key={fields.placeholder}
             placeholder={fields.placeholder}
             type={fields.type}
-            label={fields.label}
             formikObject={formik}
             error={formik.errors[fields.placeholder]}
           />
@@ -58,11 +61,11 @@ const BasicDetails = ({ proceed }) => {
           <label>Address Details</label>
           {addressFields.map((fields) => (
             <InputWithLabel
-              key={fields.label}
+              key={fields.placeholder}
               type={fields.type}
-              label={fields.label}
               placeholder={fields.placeholder}
               formikObject={formik}
+              error={formik.errors[fields.placeholder]}
             />
           ))}
           <DropDownWithLabel
@@ -71,6 +74,7 @@ const BasicDetails = ({ proceed }) => {
           />
         </div>
       </form>
+      <Footer handleProceed={GoForward} handleCancel={GoBackward} />
     </div>
   );
 };
