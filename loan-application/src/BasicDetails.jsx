@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import InputWithLabel from "./InputWithLabel";
 import DropDownWithLabel from "./DropDownWithLabel";
 import {
@@ -7,9 +7,11 @@ import {
   CountryArray,
   arraysort,
   validationSchema,
+  checkAllFieldsFilled,
 } from "./Utilts/Constants";
 import { useFormik } from "formik";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setBasicDetailsData } from "./Redux/loanDataSlicer";
 import Footer from "./Footer";
 const BasicDetails = ({ proceed, handleProceed, handleCancel }) => {
   const formik = useFormik({
@@ -22,19 +24,28 @@ const BasicDetails = ({ proceed, handleProceed, handleCancel }) => {
     },
     validationSchema,
   });
+  const dispatch = useDispatch();
+  const globalLoanData = useSelector((state) => state.loanData);
 
   if (proceed !== 0) {
     if (proceed === 1) {
-      console.log(formik.values);
+      if (
+        checkAllFieldsFilled(globalLoanData) &&
+        !checkAllFieldsFilled(formik.values)
+      ) {
+        formik.setValues({ ...globalLoanData });
+      }
     }
     return null;
   }
+
   const GoForward = () => {
-    for (const key in formik.errors) {
+    for (const key in formik.values) {
+      if (formik.values[key] === "") return;
       if (formik.errors[key]) return;
     }
     handleProceed();
-    //  console.log(formik.values);
+    dispatch(setBasicDetailsData(formik.values));
   };
   const GoBackward = () => {
     handleCancel();

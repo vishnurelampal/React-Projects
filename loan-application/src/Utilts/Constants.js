@@ -69,6 +69,16 @@ const occValidationSchema = Yup.object(
   }, {})
 );
 const arraysortOcc = [...occupationFields.map((item) => item.placeholder)];
+
+function checkAllFieldsFilled(obj) {
+  for (const key in obj) {
+    if (obj[key] === "") return false;
+  }
+  return true;
+}
+
+const options = ["Home improvement", "Debt consolidation", "Business", "Car"];
+const PreferedTermOptions = ["6 months", "12 months", "24 months", "36 months"];
 export {
   inputFields,
   addressFields,
@@ -79,4 +89,7 @@ export {
   validationSchema,
   arraysortOcc,
   occValidationSchema,
+  checkAllFieldsFilled,
+  options,
+  PreferedTermOptions,
 };
