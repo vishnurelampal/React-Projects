@@ -6,3 +6,6 @@
 6. Validation setup
 7. Yup setting up
 8. Validation schema added
+9. Redux setup and Redus toolkit setup done
+10. store and slice created for data storing and fetching done
+11. Basic details data successfully in sync with redux
