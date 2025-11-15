@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const loanDataSlice = createSlice({
-  name: "loadData",
+  name: "loanData",
   initialState: { BasicDetails: {}, LoanDetails: {}, OccupationDetails: {} },
   reducers: {
     setBasicDetailsData: (state, action) => {

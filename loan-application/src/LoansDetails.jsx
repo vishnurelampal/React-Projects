@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropDownWithLabel from "./DropDownWithLabel";
 import Footer from "./Footer";
 import {
@@ -6,30 +6,33 @@ import {
   options,
   PreferedTermOptions,
 } from "./Utilts/Constants";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoansDetailsData } from "./Redux/loanDataSlicer";
-const LoansDetails = ({ proceed, handleProceed, handleCancel }) => {
+import { useSelector } from "react-redux";
+
+const LoansDetails = ({ handleProceed, handleCancel }) => {
   const [amountBorrwed, setLoanFields] = useState("");
   const [dropDownVal, setDropDownVal] = useState({
     Loan_purpose: "",
     Prefered_term: "",
   });
-  if (proceed !== 1) return null;
+  const globalLoanData = useSelector((state) => state.loanData.LoanDetails);
+  const loanData = {
+    ...dropDownVal,
+    Amount_to_borrow: amountBorrwed,
+  };
+  useEffect(() => {
+    if (
+      checkAllFieldsFilled(globalLoanData) &&
+      !checkAllFieldsFilled(loanData)
+    ) {
+      const { Loan_purpose, Prefered_term } = globalLoanData;
+      const data = { Loan_purpose, Prefered_term };
+      setLoanFields(globalLoanData.Amount_to_borrow);
+      setDropDownVal(data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalLoanData]);
+  console.log("LoansDetails Rendered");
 
-  const dispatch = useDispatch();
-  const globalLoanData = useSelector((state) => state.loanData);
-  function GoForward() {
-    const loanData = {
-      ...dropDownVal,
-      Amount_to_borrow: amountBorrwed,
-    };
-
-    checkAllFieldsFilled(loanData) && handleProceed();
-    dispatch(setLoansDetailsData(loanData));
-  }
-  function GoBackward() {
-    handleCancel();
-  }
   function handleChange(e, label) {
     setDropDownVal((prev) => ({
       ...prev,
@@ -43,6 +46,7 @@ const LoansDetails = ({ proceed, handleProceed, handleCancel }) => {
         <DropDownWithLabel
           label={"Loan_purpose"}
           optionsArray={options}
+          value={dropDownVal.Loan_purpose}
           handleChange={handleChange}
         />
         <fieldset id="amountToBorrowed" className="fieldset w-8/12">
@@ -62,9 +66,15 @@ const LoansDetails = ({ proceed, handleProceed, handleCancel }) => {
           label={"Prefered_term"}
           optionsArray={PreferedTermOptions}
           handleChange={handleChange}
+          value={dropDownVal.Prefered_term}
         />
       </form>
-      <Footer handleProceed={GoForward} handleCancel={GoBackward} />
+      <Footer
+        handleProceed={() => {
+          handleProceed(loanData);
+        }}
+        handleCancel={handleCancel}
+      />
     </div>
   );
 };

@@ -13,7 +13,7 @@ const InputWithLabel = ({ type, placeholder, formikObject, error }) => {
 
   return (
     <fieldset id="" className="fieldset w-8/12">
-      {floatingLabel && (
+      {(floatingLabel || formikObject.values[placeholder]) && (
         <legend className="fieldset-legend">{placeholder}</legend>
       )}
       <input

@@ -1,55 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputWithLabel from "./InputWithLabel";
 import DropDownWithLabel from "./DropDownWithLabel";
 import {
   inputFields,
   addressFields,
   CountryArray,
-  arraysort,
+  initialValues,
   validationSchema,
   checkAllFieldsFilled,
+  errorMessageBasicDetails,
 } from "./Utilts/Constants";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { setBasicDetailsData } from "./Redux/loanDataSlicer";
+import { useSelector } from "react-redux";
 import Footer from "./Footer";
-const BasicDetails = ({ proceed, handleProceed, handleCancel }) => {
+const BasicDetails = ({ handleProceed, handleCancel }) => {
+  console.log("BasicDetails Rendered");
+  const globalBasicDetails = useSelector(
+    (state) => state.loanData.BasicDetails
+  );
   const formik = useFormik({
-    initialValues: arraysort.reduce((acc, curr) => {
-      acc[curr] = "";
-      return acc;
-    }, {}),
+    initialValues,
     onSubmit: (values) => {
       console.log(values);
     },
     validationSchema,
   });
-  const dispatch = useDispatch();
-  const globalLoanData = useSelector((state) => state.loanData);
-
-  if (proceed !== 0) {
-    if (proceed === 1) {
-      if (
-        checkAllFieldsFilled(globalLoanData) &&
-        !checkAllFieldsFilled(formik.values)
-      ) {
-        formik.setValues({ ...globalLoanData });
-      }
+  useEffect(() => {
+    if (
+      checkAllFieldsFilled(globalBasicDetails) &&
+      !checkAllFieldsFilled(formik.values)
+    ) {
+      formik.setValues({ ...globalBasicDetails });
     }
-    return null;
-  }
-
-  const GoForward = () => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalBasicDetails]);
+  function goForward() {
     for (const key in formik.values) {
-      if (formik.values[key] === "") return;
+      if (formik.values[key] === "") {
+        formik.setTouched(errorMessageBasicDetails);
+        // debugger;
+        return;
+      }
       if (formik.errors[key]) return;
     }
-    handleProceed();
-    dispatch(setBasicDetailsData(formik.values));
-  };
-  const GoBackward = () => {
-    handleCancel();
-  };
+
+    handleProceed(formik);
+  }
 
   return (
     <div className="h-full p-5">
@@ -85,7 +81,7 @@ const BasicDetails = ({ proceed, handleProceed, handleCancel }) => {
           />
         </div>
       </form>
-      <Footer handleProceed={GoForward} handleCancel={GoBackward} />
+      <Footer handleProceed={goForward} handleCancel={handleCancel} />
     </div>
   );
 };

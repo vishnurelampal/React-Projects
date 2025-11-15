@@ -3,7 +3,7 @@ const inputFields = [
   { type: "text", placeholder: "First Name" },
   { type: "text", placeholder: "Middle Name" },
   { type: "text", placeholder: "Last Name" },
-  { type: "date", placeholder: "Date Of Birth" },
+
   { type: "number", placeholder: "Mobile Number" },
   { type: "email", placeholder: "E-mail" },
 ];
@@ -34,6 +34,14 @@ const arraysort = [
   ...inputFields.map((item) => item.placeholder),
   ...addressFields.map((item) => item.placeholder),
 ];
+const initialValues = arraysort.reduce((acc, item) => {
+  acc[item] = "";
+  return acc;
+}, {});
+const errorMessageBasicDetails = arraysort.reduce((acc, item) => {
+  acc[item] = true;
+  return acc;
+}, {});
 const validationSchema = Yup.object(
   arraysort.reduce((acc, curr) => {
     if (curr == "Mobile Number") {
@@ -71,6 +79,8 @@ const occValidationSchema = Yup.object(
 const arraysortOcc = [...occupationFields.map((item) => item.placeholder)];
 
 function checkAllFieldsFilled(obj) {
+  if (Object.keys(obj).length === 0) return false;
+
   for (const key in obj) {
     if (obj[key] === "") return false;
   }
@@ -85,11 +95,12 @@ export {
   CountryArray,
   occupationFields,
   emplyomentStatus,
-  arraysort,
   validationSchema,
   arraysortOcc,
   occValidationSchema,
   checkAllFieldsFilled,
   options,
   PreferedTermOptions,
+  initialValues,
+  errorMessageBasicDetails,
 };
