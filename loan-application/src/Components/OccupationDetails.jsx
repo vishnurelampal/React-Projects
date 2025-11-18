@@ -1,14 +1,13 @@
-import React from "react";
-import DropDownWithLabel from "./DropDownWithLabel";
+import { useFormik } from "formik";
 import {
   arraysortOcc,
   emplyomentStatus,
   occupationFields,
   occValidationSchema,
-} from "./Utilts/Constants";
-import InputWithLabel from "./InputWithLabel";
+} from "../Utilts/Constants";
+import DropDownWithLabel from "./CustomInputFields/DropDownWithLabel";
+import InputWithLabel from "./CustomInputFields/InputWithLabel";
 import Footer from "./Footer";
-import { useFormik } from "formik";
 
 const OccupationDetails = ({ proceed, handleProceed, handleCancel }) => {
   const validationSchema = occValidationSchema;

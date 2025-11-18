@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-const InputWithLabel = ({ type, placeholder, formikObject, error }) => {
+import { useState } from "react";
+const InputWithLabel = ({ type, placeholder, formikObject }) => {
   const [floatingLabel, setFloatingLabel] = useState(false);
-
+  const errorMsg = formikObject.errors[placeholder];
   function handleBlur(e) {
     formikObject.handleBlur(e);
     if (formikObject.values[placeholder] == "") {
@@ -10,7 +10,7 @@ const InputWithLabel = ({ type, placeholder, formikObject, error }) => {
       setFloatingLabel(true);
     }
   }
-
+  if (type === "dropDown") return null;
   return (
     <fieldset id="" className="fieldset w-8/12">
       {(floatingLabel || formikObject.values[placeholder]) && (
@@ -31,8 +31,8 @@ const InputWithLabel = ({ type, placeholder, formikObject, error }) => {
         className="input outline-0 w-full"
         placeholder={!floatingLabel ? placeholder : undefined}
       />
-      {error && formikObject.touched[placeholder] && (
-        <p className="text-red-600 ">{error}</p>
+      {errorMsg && formikObject.touched[placeholder] && (
+        <p className="text-red-600 ">{errorMsg}</p>
       )}
     </fieldset>
   );

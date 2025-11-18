@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
-import InputWithLabel from "./InputWithLabel";
-import DropDownWithLabel from "./DropDownWithLabel";
+import { useFormik } from "formik";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
-  inputFields,
   addressFields,
+  basicDetailsInputFields,
+  checkAllFieldsFilled,
   CountryArray,
+  errorMessageBasicDetails,
   initialValues,
   validationSchema,
-  checkAllFieldsFilled,
-  errorMessageBasicDetails,
-} from "./Utilts/Constants";
-import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+} from "../Utilts/Constants";
+import DropDownWithSearch from "./CustomInputFields/DropDownWithSearch";
+import InputWithLabel from "./CustomInputFields/InputWithLabel";
 import Footer from "./Footer";
 const BasicDetails = ({ handleProceed, handleCancel }) => {
   console.log("BasicDetails Rendered");
   const globalBasicDetails = useSelector(
     (state) => state.loanData.BasicDetails
   );
+
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -25,6 +26,7 @@ const BasicDetails = ({ handleProceed, handleCancel }) => {
     },
     validationSchema,
   });
+
   useEffect(() => {
     if (
       checkAllFieldsFilled(globalBasicDetails) &&
@@ -38,7 +40,6 @@ const BasicDetails = ({ handleProceed, handleCancel }) => {
     for (const key in formik.values) {
       if (formik.values[key] === "") {
         formik.setTouched(errorMessageBasicDetails);
-        // debugger;
         return;
       }
       if (formik.errors[key]) return;
@@ -54,13 +55,12 @@ const BasicDetails = ({ handleProceed, handleCancel }) => {
         className="w-full flex flex-col p-4 gap-3  "
         onSubmit={formik.onSubmit}
       >
-        {inputFields.map((fields) => (
+        {basicDetailsInputFields.map((fields) => (
           <InputWithLabel
             key={fields.placeholder}
             placeholder={fields.placeholder}
             type={fields.type}
             formikObject={formik}
-            error={formik.errors[fields.placeholder]}
           />
         ))}
 
@@ -72,12 +72,12 @@ const BasicDetails = ({ handleProceed, handleCancel }) => {
               type={fields.type}
               placeholder={fields.placeholder}
               formikObject={formik}
-              error={formik.errors[fields.placeholder]}
             />
           ))}
-          <DropDownWithLabel
+          <DropDownWithSearch
             label="Select Country"
             optionsArray={CountryArray}
+            formikObject={formik}
           />
         </div>
       </form>

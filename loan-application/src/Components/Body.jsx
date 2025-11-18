@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setBasicDetailsData, setLoanData } from "../Redux/loanDataSlicer";
+import { checkAllFieldsFilled } from "../Utilts/Constants";
 import BasicDetails from "./BasicDetails";
 import LoansDetails from "./LoansDetails";
 import OccupationDetails from "./OccupationDetails";
 import ProgressionBar from "./ProgressionBar";
-import { setBasicDetailsData } from "./Redux/loanDataSlicer";
-import { useDispatch } from "react-redux";
-import { checkAllFieldsFilled } from "./Utilts/Constants";
-import { setLoanData } from "./Redux/loanDataSlicer";
 const Body = () => {
   const dispatch = useDispatch();
   const [proceed, setPrcoceed] = useState(0);

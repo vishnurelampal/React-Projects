@@ -1,4 +1,9 @@
 {
-    "css.lint.unknownAtRules": "ignore"
-
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+"css.lint.unknownAtRules": "ignore"
 }

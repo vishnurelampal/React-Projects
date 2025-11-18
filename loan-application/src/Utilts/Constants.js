@@ -1,11 +1,12 @@
 import * as Yup from "yup";
-const inputFields = [
+const basicDetailsInputFields = [
   { type: "text", placeholder: "First Name" },
   { type: "text", placeholder: "Middle Name" },
   { type: "text", placeholder: "Last Name" },
 
   { type: "number", placeholder: "Mobile Number" },
   { type: "email", placeholder: "E-mail" },
+  { type: "dropDown", placeholder: "Select Country" },
 ];
 const addressFields = [
   { type: "text", placeholder: "Address Line 1" },
@@ -31,7 +32,7 @@ const occupationFields = [
   { type: "text", placeholder: "Are you a salaried employee?" },
 ];
 const arraysort = [
-  ...inputFields.map((item) => item.placeholder),
+  ...basicDetailsInputFields.map((item) => item.placeholder),
   ...addressFields.map((item) => item.placeholder),
 ];
 const initialValues = arraysort.reduce((acc, item) => {
@@ -90,17 +91,17 @@ function checkAllFieldsFilled(obj) {
 const options = ["Home improvement", "Debt consolidation", "Business", "Car"];
 const PreferedTermOptions = ["6 months", "12 months", "24 months", "36 months"];
 export {
-  inputFields,
   addressFields,
-  CountryArray,
-  occupationFields,
-  emplyomentStatus,
-  validationSchema,
   arraysortOcc,
-  occValidationSchema,
+  basicDetailsInputFields,
   checkAllFieldsFilled,
+  CountryArray,
+  emplyomentStatus,
+  errorMessageBasicDetails,
+  initialValues,
+  occupationFields,
+  occValidationSchema,
   options,
   PreferedTermOptions,
-  initialValues,
-  errorMessageBasicDetails,
+  validationSchema,
 };

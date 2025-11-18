@@ -1,8 +1,8 @@
-import React from "react";
-import Header from "./Header";
-import Body from "./Body";
-import store from "./Redux/store";
 import { Provider } from "react-redux";
+
+import store from "../Redux/store";
+import Body from "./Body";
+import Header from "./Header";
 const App = () => {
   return (
     <Provider store={store}>

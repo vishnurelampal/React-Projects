@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import DropDownWithLabel from "./DropDownWithLabel";
-import Footer from "./Footer";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   checkAllFieldsFilled,
   options,
   PreferedTermOptions,
-} from "./Utilts/Constants";
-import { useSelector } from "react-redux";
+} from "../Utilts/Constants";
+import DropDownWithLabel from "./CustomInputFields/DropDownWithLabel";
+import Footer from "./Footer";
 
 const LoansDetails = ({ handleProceed, handleCancel }) => {
   const [amountBorrwed, setLoanFields] = useState("");
