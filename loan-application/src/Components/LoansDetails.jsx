@@ -14,6 +14,11 @@ const LoansDetails = ({ handleProceed, handleCancel }) => {
     Loan_purpose: "",
     Prefered_term: "",
   });
+  const [errors, setErrors] = useState({
+    Amount_to_borrow: "",
+    Loan_purpose: "",
+    Prefered_term: "",
+  });
   const globalLoanData = useSelector((state) => state.loanData.LoanDetails);
   const loanData = {
     ...dropDownVal,
@@ -34,21 +39,55 @@ const LoansDetails = ({ handleProceed, handleCancel }) => {
   console.log("LoansDetails Rendered");
 
   function handleChange(e, label) {
+    label = label.replaceAll(" ", "_");
     setDropDownVal((prev) => ({
       ...prev,
-      [label.replaceAll(" ", "_")]: e.target.value,
+      [label]: e.target.value,
     }));
+    debugger;
+    if (e.target.value !== "") {
+      setErrors((prev) => ({
+        ...prev,
+        [label]: "",
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [label]: `${label.replaceAll("_", " ")} is required`,
+      }));
+    }
+  }
+  function goFrorward() {
+    if (checkAllFieldsFilled(loanData)) {
+      handleProceed(loanData);
+    } else {
+      const tempObj = {};
+      for (const key in loanData) {
+        if (loanData[key] === "") {
+          tempObj[key] = `${key.replaceAll("_", " ")} is required`;
+        }
+      }
+      setErrors(tempObj);
+    }
   }
   return (
     <div className="p-5 h-full">
       <label className="text-sm font-semibold">Loans Details</label>
-      <form className="flex flex-col mt-5">
-        <DropDownWithLabel
-          label={"Loan_purpose"}
-          optionsArray={options}
-          value={dropDownVal.Loan_purpose}
-          handleChange={handleChange}
-        />
+      <form className="flex flex-col mt-5 gap-5">
+        <div>
+          <DropDownWithLabel
+            label={"Loan_purpose"}
+            optionsArray={options}
+            value={dropDownVal.Loan_purpose}
+            handleChange={handleChange}
+          />
+          {errors.Loan_purpose !== "" && (
+            <p className="text-red-600 text-xs font-semibold">
+              {errors.Loan_purpose}
+            </p>
+          )}
+        </div>
+
         <fieldset id="amountToBorrowed" className="fieldset w-8/12">
           <legend className="">Amount you want to borrow</legend>
           <input
@@ -57,24 +96,43 @@ const LoansDetails = ({ handleProceed, handleCancel }) => {
             className="h-9"
             value={amountBorrwed}
             onChange={(e) => {
+              if (e.target.value == "") {
+                setErrors((prev) => ({
+                  ...prev,
+                  ["Amount_to_borrow"]: "Amount to borrow is required",
+                }));
+              } else {
+                setErrors((prev) => ({
+                  ...prev,
+                  ["Amount_to_borrow"]: "",
+                }));
+              }
+
               setLoanFields(e.target.value);
             }}
           />
+          {errors.Amount_to_borrow !== "" && (
+            <p className="text-red-600 text-xs font-semibold">
+              {errors.Amount_to_borrow}
+            </p>
+          )}
         </fieldset>
 
-        <DropDownWithLabel
-          label={"Prefered_term"}
-          optionsArray={PreferedTermOptions}
-          handleChange={handleChange}
-          value={dropDownVal.Prefered_term}
-        />
+        <div>
+          <DropDownWithLabel
+            label={"Prefered_term"}
+            optionsArray={PreferedTermOptions}
+            handleChange={handleChange}
+            value={dropDownVal.Prefered_term}
+          />
+          {errors.Prefered_term !== "" && (
+            <p className="text-red-600 text-xs font-semibold">
+              {errors.Prefered_term}
+            </p>
+          )}
+        </div>
       </form>
-      <Footer
-        handleProceed={() => {
-          handleProceed(loanData);
-        }}
-        handleCancel={handleCancel}
-      />
+      <Footer handleProceed={goFrorward} handleCancel={handleCancel} />
     </div>
   );
 };

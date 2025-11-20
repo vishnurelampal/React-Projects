@@ -11,6 +11,7 @@ const Body = () => {
   const [proceed, setPrcoceed] = useState(0);
   function handleProceed(data) {
     if (proceed === 0) {
+      console.log("proceed is 0");
       dispatch(setBasicDetailsData(data.values));
     } else if (proceed === 1) {
       if (!checkAllFieldsFilled(data)) return;

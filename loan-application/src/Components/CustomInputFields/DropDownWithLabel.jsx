@@ -11,7 +11,7 @@ const DropDownWithLabel = ({ label, optionsArray, handleChange, value }) => {
         defaultValue="Pick a browser"
         className="select w-full outline-none"
       >
-        <option>Please Select</option>
+        <option value={""}>Please Select</option>
         {optionsArray.map((item) => (
           <option key={item}>{item}</option>
         ))}
