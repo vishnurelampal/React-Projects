@@ -11,3 +11,4 @@
 - Basic details data successfully in sync with redux
 - Folder structure created and files arranged accordingly
 - Loan validation added
+- Progression bar css blue addedd bg removed
