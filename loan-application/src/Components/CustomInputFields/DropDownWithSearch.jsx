@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
   label = label.replaceAll("_", " ");
   const [inputSearched, setInputSearched] = useState("");
@@ -7,6 +7,7 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
   const [filteredOptions, setFilteredOptions] = useState(optionsArray);
   const [optionSetter, setOptionSetter] = useState(label);
   const errorMsg = formikObject.errors[label];
+  const dropDownRef = useRef(null);
   function handleChangeInput(e) {
     const input = e.target.value;
     setInputSearched(input);
@@ -27,6 +28,15 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
       setOptionSetter(formikObject.values[label]);
     }
   }, [formikObject.values[label]]);
+  useEffect(() => {
+    if (show && dropDownRef.current) {
+      dropDownRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+      console.log("Focused");
+    }
+  }, [show]);
   return (
     <>
       <label className="font-semibold text-xs" htmlFor={label}>
@@ -57,7 +67,7 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
               placeholder="Search.."
             />
           </span>
-          <ul>
+          <ul className="bg-white " ref={dropDownRef}>
             {filteredOptions.map((item) => (
               <span key={item} className="w-8/12">
                 <li
