@@ -12,3 +12,4 @@
 - Folder structure created and files arranged accordingly
 - Loan validation added
 - Progression bar css blue addedd bg removed
+- Dropdown scroll handled
