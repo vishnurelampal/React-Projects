@@ -7,6 +7,7 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
   const [filteredOptions, setFilteredOptions] = useState(optionsArray);
   const [optionSetter, setOptionSetter] = useState(label);
   const errorMsg = formikObject.errors[label];
+  console.log(errorMsg);
   const dropDownRef = useRef(null);
   function handleChangeInput(e) {
     const input = e.target.value;
@@ -24,9 +25,13 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
   }
 
   useEffect(() => {
-    if (formikObject.values[label] !== "") {
+    if (
+      formikObject.values[label] !== "" &&
+      formikObject.values[label] != undefined
+    ) {
       setOptionSetter(formikObject.values[label]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formikObject.values[label]]);
   useEffect(() => {
     if (show && dropDownRef.current) {
@@ -34,7 +39,6 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
         behavior: "smooth",
         block: "nearest",
       });
-      console.log("Focused");
     }
   }, [show]);
   return (
@@ -44,7 +48,7 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
       </label>
       <div
         id={label}
-        aria-label="Select Country"
+        aria-label={label}
         onClick={() => {
           setshow((prev) => !prev);
         }}

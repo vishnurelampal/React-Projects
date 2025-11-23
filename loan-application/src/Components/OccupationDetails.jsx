@@ -1,15 +1,17 @@
 import { useFormik } from "formik";
 import {
   arraysortOcc,
+  checkAllFieldsFilled,
   emplyomentStatus,
+  occupationErrorMessage,
   occupationFields,
   occValidationSchema,
 } from "../Utilts/Constants";
-import DropDownWithLabel from "./CustomInputFields/DropDownWithLabel";
+import DropDownWithSearch from "./CustomInputFields/DropDownWithSearch";
 import InputWithLabel from "./CustomInputFields/InputWithLabel";
 import Footer from "./Footer";
 
-const OccupationDetails = ({ proceed, handleProceed, handleCancel }) => {
+const OccupationDetails = ({ handleProceed, handleCancel }) => {
   const validationSchema = occValidationSchema;
   const formik = useFormik({
     initialValues: arraysortOcc.reduce((acc, curr) => {
@@ -21,14 +23,21 @@ const OccupationDetails = ({ proceed, handleProceed, handleCancel }) => {
     },
     validationSchema,
   });
-  if (proceed !== 2) return null;
+  function goForward() {
+    if (checkAllFieldsFilled(formik.values)) {
+      handleProceed(formik.values);
+    } else {
+      formik.setTouched(occupationErrorMessage);
+    }
+  }
   return (
     <div className="p-5">
       <label className="text-sm font-semibold">Occupation details</label>
       <form>
-        <DropDownWithLabel
-          label={"Current emplyoment status"}
+        <DropDownWithSearch
+          label="Select Occupation"
           optionsArray={emplyomentStatus}
+          formikObject={formik}
         />
         {occupationFields.map((fields) => (
           <InputWithLabel
@@ -40,7 +49,7 @@ const OccupationDetails = ({ proceed, handleProceed, handleCancel }) => {
           />
         ))}
       </form>
-      <Footer handleProceed={handleProceed} handleCancel={handleCancel} />
+      <Footer handleProceed={goForward} handleCancel={handleCancel} />
     </div>
   );
 };

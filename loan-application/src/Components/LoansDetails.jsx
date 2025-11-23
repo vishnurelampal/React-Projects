@@ -44,7 +44,7 @@ const LoansDetails = ({ handleProceed, handleCancel }) => {
       ...prev,
       [label]: e.target.value,
     }));
-    debugger;
+
     if (e.target.value !== "") {
       setErrors((prev) => ({
         ...prev,

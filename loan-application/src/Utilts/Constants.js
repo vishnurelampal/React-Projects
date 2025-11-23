@@ -23,6 +23,7 @@ const emplyomentStatus = [
   "Retired",
 ];
 const occupationFields = [
+  { type: "dropDown", placeholder: "Select Occupation" },
   { type: "text", placeholder: "Current Employer Name" },
   { type: "text", placeholder: "Job Title" },
   { type: "text", placeholder: "Total Work Experience" },
@@ -78,7 +79,10 @@ const occValidationSchema = Yup.object(
   }, {})
 );
 const arraysortOcc = [...occupationFields.map((item) => item.placeholder)];
-
+const occupationErrorMessage = arraysortOcc.reduce((acc, item) => {
+  acc[item] = true;
+  return acc;
+}, {});
 function checkAllFieldsFilled(obj) {
   if (Object.keys(obj).length === 0) return false;
 
@@ -99,6 +103,7 @@ export {
   emplyomentStatus,
   errorMessageBasicDetails,
   initialValues,
+  occupationErrorMessage,
   occupationFields,
   occValidationSchema,
   options,
