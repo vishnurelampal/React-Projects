@@ -31,9 +31,9 @@ const OccupationDetails = ({ handleProceed, handleCancel }) => {
     }
   }
   return (
-    <div className="p-5">
+    <div className="p-5 flex gap-3 flex-col">
       <label className="text-sm font-semibold">Occupation details</label>
-      <form>
+      <form className="mt-5 flex flex-col gap-2">
         <DropDownWithSearch
           label="Select Occupation"
           optionsArray={emplyomentStatus}

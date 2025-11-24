@@ -42,8 +42,8 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
     }
   }, [show]);
   return (
-    <>
-      <label className="font-semibold text-xs" htmlFor={label}>
+    <div className="flex gap-1 flex-col">
+      <label className="font-semibold text-xs " htmlFor={label}>
         {label}
       </label>
       <div
@@ -89,7 +89,7 @@ const DropDownWithSearch = ({ label, optionsArray, formikObject }) => {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
