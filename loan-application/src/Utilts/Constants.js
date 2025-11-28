@@ -78,7 +78,7 @@ const occValidationSchema = Yup.object(
     return acc;
   }, {})
 );
-const arraysortOcc = [...occupationFields.map((item) => item.placeholder)];
+const arraysortOcc = occupationFields.map((item) => item.placeholder);
 const occupationErrorMessage = arraysortOcc.reduce((acc, item) => {
   acc[item] = true;
   return acc;
@@ -94,6 +94,32 @@ function checkAllFieldsFilled(obj) {
 
 const options = ["Home improvement", "Debt consolidation", "Business", "Car"];
 const PreferedTermOptions = ["6 months", "12 months", "24 months", "36 months"];
+const expenseField = [
+  { type: "text", placeholder: "Monthly Rent" },
+  { type: "text", placeholder: "Utilities" },
+  { type: "text", placeholder: "Groceries" },
+  { type: "text", placeholder: "Transportation" },
+  { type: "text", placeholder: "Insurance" },
+  { type: "text", placeholder: "Entertainment" },
+  { type: "text", placeholder: "Dining Out" },
+  { type: "text", placeholder: "Miscellaneous" },
+];
+const expenseSorted = expenseField.map((item) => item.placeholder);
+const expenseInititalValue = expenseSorted.reduce((acc, item) => {
+  acc[item] = "";
+  return acc;
+}, {});
+const expenseErrorMessage = expenseSorted.reduce((acc, item) => {
+  acc[item] = true;
+  return acc;
+}, {});
+const expenseValidationSchema = Yup.object(
+  expenseSorted.reduce((acc, item) => {
+    acc[item] = Yup.string().required(`${item} is required !`);
+    return acc;
+  }, {})
+);
+console.log(expenseSorted);
 export {
   addressFields,
   arraysortOcc,
@@ -102,6 +128,10 @@ export {
   CountryArray,
   emplyomentStatus,
   errorMessageBasicDetails,
+  expenseErrorMessage,
+  expenseField,
+  expenseInititalValue,
+  expenseValidationSchema,
   initialValues,
   occupationErrorMessage,
   occupationFields,

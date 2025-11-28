@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setBasicDetailsData, setLoanData } from "../Redux/loanDataSlicer";
 import { checkAllFieldsFilled } from "../Utilts/Constants";
 import BasicDetails from "./BasicDetails";
+import Expense from "./Expense";
 import LoansDetails from "./LoansDetails";
 import OccupationDetails from "./OccupationDetails";
 import ProgressionBar from "./ProgressionBar";
@@ -18,13 +19,13 @@ const Body = () => {
       dispatch(setLoanData(data));
     }
 
-    if (proceed < 2) {
+    if (proceed < 3) {
       setPrcoceed((prev) => prev + 1);
     }
   }
 
   function handleCancel() {
-    if (proceed < 3 && proceed > 0) {
+    if (proceed < 4 && proceed > 0) {
       setPrcoceed((prev) => prev - 1);
     }
   }
@@ -52,6 +53,7 @@ const Body = () => {
             handleCancel={handleCancel}
           />
         )}
+        {proceed === 3 && <Expense />}
       </div>
     </div>
   );
