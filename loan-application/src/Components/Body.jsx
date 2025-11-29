@@ -9,7 +9,7 @@ import OccupationDetails from "./OccupationDetails";
 import ProgressionBar from "./ProgressionBar";
 const Body = () => {
   const dispatch = useDispatch();
-  const [proceed, setPrcoceed] = useState(0);
+  const [proceed, setPrcoceed] = useState(3);
   function handleProceed(data) {
     if (proceed === 0) {
       console.log("proceed is 0");
@@ -53,7 +53,9 @@ const Body = () => {
             handleCancel={handleCancel}
           />
         )}
-        {proceed === 3 && <Expense />}
+        {proceed === 3 && (
+          <Expense handleProceed={handleProceed} handleCancel={handleCancel} />
+        )}
       </div>
     </div>
   );

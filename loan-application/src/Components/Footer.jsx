@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = ({ handleProceed, handleCancel }) => {
   return (
     <footer className="footer  fixed bottom-0 sm:footer-horizontal text-base-content p-4">
