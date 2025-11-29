@@ -14,4 +14,5 @@
 - Progression bar css blue addedd bg removed
 - Dropdown scroll handled
 - Bugfix for dropdown: setting placeholder dynamically
+- Error handled for Expense 
 
