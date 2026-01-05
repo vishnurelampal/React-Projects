@@ -1,19 +1,19 @@
-import { React, lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import Error from "./src/Components/Error";
 import {
   createBrowserRouter,
-  RouterProvider,
   Outlet,
+  RouterProvider,
   useLocation,
 } from "react-router-dom";
-import Header from "./src/Components/Header";
 import Body from "./src/Components/Body";
 import Contact from "./src/Components/Contact";
 import DishesPage from "./src/Components/DishesPage";
+import Error from "./src/Components/Error";
+import Header from "./src/Components/Header";
 // import About from "./src/Components/About";
-import { UserContext } from "./src/utils/Context/useContext";
 import { Provider } from "react-redux";
+import { UserContext } from "./src/utils/Context/useContext";
 import appStore from "./src/utils/Redux/store";
 
 function AppLayout() {

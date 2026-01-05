@@ -1,7 +1,0 @@
--Installed vite,tailwind,daisy ui and setup the project
--Navebar added using daisyUI
--Setting Up routing
--Creating routes
--Children routes,outlets
--footer added
--
