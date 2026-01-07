@@ -1,7 +1,8 @@
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "../../Redux/store";
-import { Profile } from "../Dashboard/Profile";
+import { PostLoginMainScreen } from "../Dashboard/PostLoginMainScreen";
+import Profile from "../Dashboard/Profile";
 import Login from "../LoginComponents/Login";
 import DevTinderBaseScreen from "./DevTinderBaseScreen";
 const appRouter = createBrowserRouter([
@@ -12,6 +13,11 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Login />,
+      },
+      {
+        path: "/postLoginMainScreen",
+        element: <PostLoginMainScreen />,
+        children: [],
       },
       { path: "/profile", element: <Profile /> },
     ],
