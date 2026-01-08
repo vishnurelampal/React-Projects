@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddUser } from "../../Redux/userSlice";
@@ -34,7 +34,7 @@ const LoginFields = () => {
     isLoading: false,
   });
   const dispatch = useDispatch();
-  useEffect(() => {});
+
   async function handleSignUp() {
     try {
       setLoginDataProps((prev) => ({ ...prev, isLoading: true }));

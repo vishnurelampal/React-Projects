@@ -1,15 +1,15 @@
-const Header = () => {
+const Header = ({ navigation }) => {
   return (
     <header className="">
       <ul
-        className="mt-1 flex gap-5  *:text-white font-bold text-xl *:cursor-pointer *:border-b-2 *:border-b-white *:hover:bg-white *:hover:text-black p-2
-      *:px-4 *:py-2 *:hover:rounded-4xl"
+        className=" flex gap-5  *:text-white font-bold text-xl *:cursor-pointer *:border-b-2 *:border-b-white *:hover:bg-white *:hover:text-black p-2
+      *:px-4 *:pb-2 *:hover:rounded-4xl"
       >
-        <li>Products</li>
-        <li>Learn</li>
-        <li>Safety</li>
-        <li>Support</li>
-        <li>Download</li>
+        <li>{navigation.first}</li>
+        <li>{navigation.second}</li>
+        <li>{navigation.third}</li>
+        <li>{navigation.fourth}</li>
+        <li>{navigation.fifth}</li>
       </ul>
     </header>
   );

@@ -1,11 +1,22 @@
+import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AddUser } from "../../Redux/userSlice";
+import { SkillOption } from "../../Utils/Constants";
+import ToastMessage from "../BaseScreen/ToastMessage";
 import Cards from "./Cards";
-
 const Profile = () => {
   const userDetails = useSelector((store) => store.user.val);
   const [userEditDetails, setUserEditDetails] = useState(userDetails);
   const [error, setError] = useState("");
+  const [skillDropDownVal, setSkillsDropDownVal] =
+    useState<string[]>(SkillOption);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(
+    userDetails?.skills || []
+  );
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   function handleInputChange(event) {
     const fieldChanged = event.target.id;
@@ -14,24 +25,51 @@ const Profile = () => {
     temp[fieldChanged] = value;
     setUserEditDetails(temp);
   }
-  function handleSkillsChange(e) {
-    setUserEditDetails((prev) => ({
-      ...prev,
-      skills: e.target.value,
-    }));
-  }
-  function validateInputFields() {
-    if (userEditDetails.skills.length == 0) {
-      setError("Please add your skills");
+  function handleSkillSelect(skills: string) {
+    if (selectedSkills.includes(skills)) {
+      setSelectedSkills((prev) => prev.filter((item) => item !== skills));
       return;
     }
+    setSelectedSkills((prev) => [...prev, skills]);
+  }
+  function validateInputFields() {
+    // if (userEditDetails.skills?.length == 0) {
+    //   setError("Please add your skills");
+    //   return;
+    // }
     for (const key in userEditDetails) {
       if (userEditDetails[key] === "" || userEditDetails[key] === undefined) {
         setError(`Please fill ${key} field`);
         return false;
       }
-      setError("");
     }
+    setError("");
+    updateProfile();
+  }
+
+  async function updateProfile() {
+    try {
+      console.log(userEditDetails.skills);
+      const res = await axios.patch(
+        "http://localhost:7000/profile/updateDetails",
+        {
+          firstName: userEditDetails.firstName,
+          lastName: userEditDetails.lastName,
+          emailId: userEditDetails.emailId,
+          age: userEditDetails.age,
+          gender: userEditDetails.gender,
+          skills: userEditDetails.skills,
+        },
+        { withCredentials: true }
+      );
+      console.log(res.data);
+      dispatch(AddUser(userEditDetails));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  function handleBlur(): void {
+    setUserEditDetails((prev) => ({ ...prev, skills: selectedSkills }));
   }
   if (!userDetails) return null;
   return (
@@ -93,26 +131,43 @@ const Profile = () => {
                   handleInputChange(e);
                 }}
               />
-              <div onClick={handleSkillsChange}>
-                <h1>Click Here</h1>
-                <div className="flex flex-col w-full gap-2 bg-white">
-                  <span>
-                    <input id="JS" type="checkbox" />
-                    <label htmlFor="JS">JS</label>
-                  </span>
-                  <span>
-                    <input id="React" type="checkbox" />
-                    <label htmlFor="React">React</label>
-                  </span>
-                  <span>
-                    <input id="Redux" type="checkbox" />
-                    <label htmlFor="Redux">Redux</label>
-                  </span>
-                  <span>
-                    <input id="Tailwind" type="checkbox" />
-                    <label htmlFor="Tailwind">Tailwind</label>
-                  </span>
+              <div className="dropdown -pl-4" onBlur={handleBlur}>
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn m-1 w-xs text-start flex bg-white justify-between"
+                >
+                  {selectedSkills?.length === 0 ? (
+                    <h1>Select Skills</h1>
+                  ) : (
+                    <span className="flex gap-1">
+                      {selectedSkills.map((item) => (
+                        <span
+                          key={item}
+                          className="flex justify-between gap-1 rounded-md px-1 border-2  border-blue-500 font-black"
+                        >
+                          <h1>{item}</h1>
+                        </span>
+                      ))}
+                    </span>
+                  )}
+                  <h1>🔽</h1>
                 </div>
+                <ul
+                  tabIndex={-1}
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                >
+                  {skillDropDownVal.map((item) => (
+                    <li
+                      className="flex flex-row justify-between cursor-pointer"
+                      key={item}
+                      onClick={() => handleSkillSelect(item)}
+                    >
+                      <h1>{item}</h1>
+                      {selectedSkills.includes(item) && <h1>✔️</h1>}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <input
@@ -135,7 +190,7 @@ const Profile = () => {
               />
               {error && <p>{error}</p>}
             </form>
-            <footer className="sticky  bottom-0 mt-4 justify-center font-semibold p-2 w-full">
+            <footer className="  bottom-0 mt-4 justify-center font-semibold p-2 w-full">
               <button
                 className="bg-black text-white px-3 py-2 cursor-pointer hover:text-green-400  transition-all duration-200   rounded-xl ml-8"
                 onClick={validateInputFields}
@@ -153,6 +208,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      {showToast && <ToastMessage message="Skill already added" type="info" />}
     </div>
   );
 };

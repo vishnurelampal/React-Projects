@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../../Redux/userSlice";
 import Header from "../BaseScreen/Header";
 import LoginSignUpCard from "./LoginSIgnUpCard";
 import ZindlerLogo from "./ZindlerLogo";
-
+type HeaderComponetType = {
+  Products: string;
+  Learn: string;
+  Safety: string;
+  Support: string;
+  Download: string;
+};
 const Login = () => {
+  const dispatch = useDispatch();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  useEffect(() => {
+    dispatch(removeUser());
+  }, []);
   function CreateAccountClick(): void {
     setShowLoginModal(true);
   }
@@ -12,6 +24,14 @@ const Login = () => {
     setShowLoginModal(false);
     console.log("closed");
   }
+
+  const navigationObject: Record<string, string> = {
+    first: "Products",
+    second: "Learn",
+    third: "Safety",
+    fourth: "Safety",
+    fifth: "Download",
+  };
   return (
     <div className="overflow-hidden overflow-y-hidden max-h-screen">
       <div className="relative">
@@ -22,7 +42,7 @@ const Login = () => {
         />
         <div className="absolute top-0 z-10 bg-linear-to-b h-5/12 pt-5 from-black/90 to-transparent w-screen flex gap-2 ">
           <ZindlerLogo />
-          <Header />
+          <Header navigation={navigationObject} />
         </div>
         <div className="mx-auto ">
           <button
