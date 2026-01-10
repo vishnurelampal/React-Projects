@@ -1,29 +1,42 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../Redux/store";
 import { AddUser } from "../../Redux/userSlice";
 import { SkillOption } from "../../Utils/Constants";
 import ToastMessage from "../BaseScreen/ToastMessage";
 import Cards from "./Cards";
+
+type UserEditDetails = {
+  _id?: string;
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
+  age?: string | number;
+  skills?: string[];
+  emailId?: string;
+};
+
 const Profile = () => {
-  const userDetails = useSelector((store) => store.user.val);
-  const [userEditDetails, setUserEditDetails] = useState(userDetails);
+  const userDetails = useSelector((store: RootState) => store.user.val);
+  const [userEditDetails, setUserEditDetails] = useState<UserEditDetails>(
+    userDetails || {}
+  );
   const [error, setError] = useState("");
-  const [skillDropDownVal, setSkillsDropDownVal] =
-    useState<string[]>(SkillOption);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [skillDropDownVal] = useState<string[]>(SkillOption);
   const [selectedSkills, setSelectedSkills] = useState<string[]>(
     userDetails?.skills || []
   );
-  const [showToast, setShowToast] = useState<boolean>(false);
+  const [showToast] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  function handleInputChange(event) {
-    const fieldChanged = event.target.id;
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const fieldChanged = event.target.id as keyof UserEditDetails;
     const value = event.target.value;
-    const temp = { ...userEditDetails };
-    temp[fieldChanged] = value;
-    setUserEditDetails(temp);
+    setUserEditDetails((prev) => ({
+      ...prev,
+      [fieldChanged]: value,
+    }));
   }
   function handleSkillSelect(skills: string) {
     if (selectedSkills.includes(skills)) {
@@ -33,12 +46,12 @@ const Profile = () => {
     setSelectedSkills((prev) => [...prev, skills]);
   }
   function validateInputFields() {
-    // if (userEditDetails.skills?.length == 0) {
-    //   setError("Please add your skills");
-    //   return;
-    // }
     for (const key in userEditDetails) {
-      if (userEditDetails[key] === "" || userEditDetails[key] === undefined) {
+      const typedKey = key as keyof UserEditDetails;
+      if (
+        userEditDetails[typedKey] === "" ||
+        userEditDetails[typedKey] === undefined
+      ) {
         setError(`Please fill ${key} field`);
         return false;
       }

@@ -1,10 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import Cards from "./Cards";
-
+type UserDetailsDataProp = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  age: string | number;
+};
 const DashboardMain = () => {
-  const [feedData, setFeedData] = useState([]);
+  const [feedData, setFeedData] = useState<UserDetailsDataProp[]>([]);
   useEffect(() => {
     async function showFeed() {
       try {
@@ -19,7 +24,6 @@ const DashboardMain = () => {
     }
     showFeed();
   }, []);
-  const loggedUserData = useSelector((store) => store.user.val);
   return (
     <>
       <div className="flex gap-10 ">

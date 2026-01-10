@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,9 @@ const LoginFields = () => {
       setLoginDataProps({ error: "", isLoading: false });
       navigate("/profile");
     } catch (err) {
-      const errorMessage: string = err?.response?.data || "An error occurred";
+      const error = err as AxiosError;
+      const errorMessage: string =
+        (error.response?.data as string) || "An error occurred";
       setLoginDataProps({ error: errorMessage, isLoading: false });
       navigate("/");
       console.log("this is err", err);

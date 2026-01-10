@@ -1,4 +1,14 @@
-const Header = ({ navigation }) => {
+type HeaderComponetType = {
+  first: string;
+  second: string;
+  third: string;
+  fourth: string;
+  fifth: string;
+};
+type HeaderNav = {
+  navigation: HeaderComponetType;
+};
+const Header = ({ navigation }: HeaderNav) => {
   return (
     <header className="">
       <ul

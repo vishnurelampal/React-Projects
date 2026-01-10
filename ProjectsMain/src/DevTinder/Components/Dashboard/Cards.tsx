@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { static1 } from "../../Utils/Constants.js";
-const randomIndex = Math.floor(Math.random() * 9);
-const Cards = ({ userDetails, showButton }) => {
+type UserDetailsDataProp = {
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
+  age?: string | number;
+};
+type userDetailsProp = {
+  userDetails: UserDetailsDataProp;
+  showButton: boolean;
+};
+const Cards = ({ userDetails, showButton }: userDetailsProp) => {
   const [removeComponent, setRenderToEmpty] = useState(false);
   if (removeComponent) {
     return null;

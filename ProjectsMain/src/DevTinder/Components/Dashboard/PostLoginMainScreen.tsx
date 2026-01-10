@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { removeUser } from "../../Redux/userSlice";
 import Header from "../BaseScreen/Header";
 import ZindlerLogo from "../LoginComponents/ZindlerLogo";
 import DashboardMain from "./DashboardMain";
+type HeaderComponetType = {
+  first: string;
+  second: string;
+  third: string;
+  fourth: string;
+  fifth: string;
+};
+
 export const PostLoginMainScreen = () => {
-  const [tem, setTemp] = useState({ text: "random" });
-  const dispatch = useDispatch();
-  function LogoutHandler() {
-    dispatch(removeUser());
-  }
-  const navigationObject: Record<string, string> = {
+  const navigationObject: HeaderComponetType = {
     first: "Home",
     second: "Profile",
     third: "Connections",

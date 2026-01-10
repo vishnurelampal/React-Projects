@@ -1,7 +1,11 @@
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
-
-const CommonModal = ({ title, buttonData, navPage }) => {
+type CommonModalProps = {
+  title: string;
+  buttonData: string;
+  navPage: string;
+};
+const CommonModal = ({ title, buttonData, navPage }: CommonModalProps) => {
   const modalRoot = document.getElementById("commonModalRoot");
   if (!modalRoot) return null;
 

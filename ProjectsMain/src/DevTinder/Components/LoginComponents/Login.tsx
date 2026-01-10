@@ -5,17 +5,19 @@ import Header from "../BaseScreen/Header";
 import LoginSignUpCard from "./LoginSIgnUpCard";
 import ZindlerLogo from "./ZindlerLogo";
 type HeaderComponetType = {
-  Products: string;
-  Learn: string;
-  Safety: string;
-  Support: string;
-  Download: string;
+  first: string;
+  second: string;
+  third: string;
+  fourth: string;
+  fifth: string;
 };
+
 const Login = () => {
   const dispatch = useDispatch();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   useEffect(() => {
     dispatch(removeUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function CreateAccountClick(): void {
     setShowLoginModal(true);
@@ -25,7 +27,7 @@ const Login = () => {
     console.log("closed");
   }
 
-  const navigationObject: Record<string, string> = {
+  const navigationObject: HeaderComponetType = {
     first: "Products",
     second: "Learn",
     third: "Safety",
