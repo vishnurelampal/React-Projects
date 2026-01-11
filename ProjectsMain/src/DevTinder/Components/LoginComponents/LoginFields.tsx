@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddUser } from "../../Redux/userSlice";
@@ -68,7 +68,7 @@ const LoginFields = () => {
       console.log(res.data);
       dispatch(AddUser(res.data));
       setLoginDataProps({ error: "", isLoading: false });
-      navigate("/profile");
+      // navigate("/profile");
     } catch (err) {
       const error = err as AxiosError;
       const errorMessage: string =
@@ -78,7 +78,17 @@ const LoginFields = () => {
       console.log("this is err", err);
     }
   }
-
+  useEffect(() => {
+    function eventKey(event: KeyboardEvent) {
+      if (event.key === "Enter") {
+        handleSignUp();
+      }
+    }
+    document.addEventListener("keydown", eventKey);
+    return () => {
+      document.removeEventListener("keydown", eventKey);
+    };
+  }, [loginData, loginFlag]);
   return (
     <>
       <h1 className="font-bold text-3xl mb-2">
