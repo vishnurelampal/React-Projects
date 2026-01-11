@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddUser } from "../../Redux/userSlice";
+import { BASE_URL } from "../../Utils/Constants";
 import Loader from "../BaseScreen/Loader";
 type Fields = {
   firstName: string;
@@ -46,11 +47,11 @@ const LoginFields = () => {
           emailId: loginData.emailId,
           password: loginData.password,
         } as Fields;
-        url = "http://localhost:7000/login";
+        url = BASE_URL + "/login";
       } else {
         loginDataCopy = { ...loginData } as Fields;
 
-        url = "http://localhost:7000/signup";
+        url = BASE_URL + "/signup";
       }
       for (const key in loginDataCopy) {
         if (loginData[key as keyof Fields] === "") {

@@ -7,5 +7,6 @@ const static2:string =
 const static3:string =
   "https://images.pexels.com/photos/712521/pexels-photo-712521.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"; 
 const SkillOption:string[] = ['JS','React','Node JS']
-  export { SkillOption, static1, static2, static3, staticImage };
+const BASE_URL = '/api'
+  export { BASE_URL, SkillOption, static1, static2, static3, staticImage };
 

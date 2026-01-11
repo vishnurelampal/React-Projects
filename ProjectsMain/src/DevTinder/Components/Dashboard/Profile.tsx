@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
 import { AddUser } from "../../Redux/userSlice";
-import { SkillOption } from "../../Utils/Constants";
+import { BASE_URL, SkillOption } from "../../Utils/Constants";
 import ToastMessage from "../BaseScreen/ToastMessage";
 import Cards from "./Cards";
 
@@ -64,7 +64,7 @@ const Profile = () => {
     try {
       console.log(userEditDetails.skills);
       const res = await axios.patch(
-        "http://localhost:7000/profile/updateDetails",
+        BASE_URL + "/profile/updateDetails",
         {
           firstName: userEditDetails.firstName,
           lastName: userEditDetails.lastName,

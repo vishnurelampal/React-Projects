@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../../Utils/Constants";
 import Cards from "./Cards";
 type UserDetailsDataProp = {
   _id: string;
@@ -13,10 +14,9 @@ const DashboardMain = () => {
   useEffect(() => {
     async function showFeed() {
       try {
-        const res = await axios.get(
-          "http://localhost:7000/feed?page=1&limit=10",
-          { withCredentials: true }
-        );
+        const res = await axios.get(BASE_URL + "/feed?page=1&limit=10", {
+          withCredentials: true,
+        });
         setFeedData(res?.data);
       } catch (err) {
         console.log(err);
