@@ -16,6 +16,7 @@ const LoginSignUpCard = ({ handleClose }: Props) => {
     return () => {
       document.removeEventListener("keydown", closeModalViaEsc);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const modalRoot = document.getElementById("modalRoot");
   if (!modalRoot) return null;

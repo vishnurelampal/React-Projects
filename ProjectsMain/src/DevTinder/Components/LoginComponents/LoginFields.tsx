@@ -66,6 +66,7 @@ const LoginFields = () => {
         withCredentials: true,
       });
       console.log(res.data);
+
       dispatch(AddUser(res.data));
       setLoginDataProps({ error: "", isLoading: false });
       // navigate("/profile");

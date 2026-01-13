@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
 import { AddUser } from "../../Redux/userSlice";
@@ -27,8 +27,10 @@ const Profile = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>(
     userDetails?.skills || []
   );
-  const [showToast] = useState<boolean>(false);
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [showErrorToast, setShowErrorToast] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const apiCalledFlag = useRef(false);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const fieldChanged = event.target.id as keyof UserEditDetails;
@@ -46,6 +48,7 @@ const Profile = () => {
     setSelectedSkills((prev) => [...prev, skills]);
   }
   function validateInputFields() {
+    if (apiCalledFlag.current) return;
     for (const key in userEditDetails) {
       const typedKey = key as keyof UserEditDetails;
       if (
@@ -57,6 +60,7 @@ const Profile = () => {
       }
     }
     setError("");
+    apiCalledFlag.current = true;
     updateProfile();
   }
 
@@ -75,10 +79,21 @@ const Profile = () => {
         },
         { withCredentials: true }
       );
-      console.log(res.data);
+
       dispatch(AddUser(userEditDetails));
+      console.log(res.data);
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
+      apiCalledFlag.current = false;
     } catch (err) {
+      setShowErrorToast(true);
+      setTimeout(() => {
+        setShowErrorToast(false);
+      }, 2000);
       console.log(err);
+      apiCalledFlag.current = false;
     }
   }
   function handleBlur(): void {
@@ -91,7 +106,12 @@ const Profile = () => {
         <div className="flex w-full justify-center">
           <div className="bg-[#F0F2F4] w-1/2 p-2 rounded-2xl mx-auto ">
             <h1 className="pb-2 text-black font-bold text-2xl">Add Details</h1>
-            <form className="flex flex-col justify-center *:ml-8 gap-2 mt-6 w-8/12 ">
+            <form
+              className="flex flex-col justify-center *:ml-8 gap-2 mt-6 w-8/12 "
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               <input
                 id="firstName"
                 type="text"
@@ -221,7 +241,10 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      {showToast && <ToastMessage message="Skill already added" type="info" />}
+      {showToast && (
+        <ToastMessage message="Saved Successfully" type="success" />
+      )}
+      {showErrorToast && <ToastMessage message="Try again" type="info" />}
     </div>
   );
 };

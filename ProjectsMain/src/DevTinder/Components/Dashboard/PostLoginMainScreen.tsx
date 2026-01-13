@@ -1,6 +1,6 @@
+import { Outlet } from "react-router-dom";
 import Header from "../BaseScreen/Header";
 import ZindlerLogo from "../LoginComponents/ZindlerLogo";
-import DashboardMain from "./DashboardMain";
 type HeaderComponetType = {
   first: string;
   second: string;
@@ -25,7 +25,7 @@ export const PostLoginMainScreen = () => {
         </div>
         <Header navigation={navigationObject} />
       </header>
-      <DashboardMain />
+      <Outlet />
     </>
   );
 };

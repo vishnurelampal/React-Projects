@@ -17,9 +17,8 @@ const appRouter = createBrowserRouter([
       {
         path: "/postLoginMainScreen",
         element: <PostLoginMainScreen />,
-        children: [],
+        children: [{ path: "/profile", element: <Profile /> }],
       },
-      { path: "/profile", element: <Profile /> },
     ],
   },
 ]);
