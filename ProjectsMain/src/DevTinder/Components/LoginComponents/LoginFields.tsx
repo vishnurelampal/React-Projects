@@ -69,7 +69,7 @@ const LoginFields = () => {
 
       dispatch(AddUser(res.data));
       setLoginDataProps({ error: "", isLoading: false });
-      // navigate("/profile");
+      navigate("/home");
     } catch (err) {
       const error = err as AxiosError;
       const errorMessage: string =
