@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { static1 } from "../../Utils/Constants.js";
+import Icon from "../BaseScreen/Icon.js";
 type UserDetailsDataProp = {
   firstName?: string;
   lastName?: string;
@@ -12,6 +13,7 @@ type userDetailsProp = {
 };
 const Cards = ({ userDetails, showButton }: userDetailsProp) => {
   const [removeComponent, setRenderToEmpty] = useState(false);
+  const [bigIconFlag, setBigIconFlag] = useState<boolean>(false);
   if (removeComponent) {
     return null;
   }
@@ -23,7 +25,7 @@ const Cards = ({ userDetails, showButton }: userDetailsProp) => {
           alt="Profile"
           className="w-full h-full rounded-2xl"
         />
-        <div className="absolute top-[65%] pl-5 text-white from-black/90 to-black/50 bg-linear-to-t w-full h-auto">
+        <div className="absolute top-[65%] pl-5 text-white from-black/90 to-black/50 bg-linear-to-t w-full h-2/4">
           <h2 className="text-2xl">
             {userDetails.firstName + " " + userDetails.lastName}
           </h2>
@@ -35,16 +37,54 @@ const Cards = ({ userDetails, showButton }: userDetailsProp) => {
           </p>
 
           {showButton && (
-            <div className="flex gap-4 justify-center   text-black *:cursor-pointer">
-              <button
-                className="bg-red-600 text-white rounded-full p-8 hover:bg-white hover:text-black transition-all duration-500"
-                onClick={() => setRenderToEmpty(true)}
-              >
-                X
-              </button>
-              <button className="bg-white text-black rounded-full p-6 hover:bg-green-500 hover:text-white transition-all duration-500">
-                ✅
-              </button>
+            <div className="flex gap-4 justify-center   text-black *:cursor-pointer mt-28">
+              <span>
+                <button
+                  className="cursor-pointer"
+                  onMouseOver={() => {
+                    setBigIconFlag(true);
+                  }}
+                  onMouseLeave={() => {
+                    setBigIconFlag(false);
+                  }}
+                  onClick={() => setRenderToEmpty(true)}
+                >
+                  {bigIconFlag ? (
+                    <Icon
+                      height={100}
+                      width={100}
+                      iconName="icon-close"
+                      classList=""
+                    />
+                  ) : (
+                    <Icon
+                      height={80}
+                      width={80}
+                      iconName="icon-close"
+                      classList=""
+                    />
+                  )}
+                </button>
+              </span>
+
+              <span>
+                <button
+                  onMouseOver={() => {
+                    setBigIconFlag(true);
+                  }}
+                  onMouseLeave={() => {
+                    setBigIconFlag(false);
+                  }}
+                  onClick={() => setRenderToEmpty(true)}
+                >
+                  <Icon
+                    height={80}
+                    width={80}
+                    iconName="icon-heart"
+                    classList=""
+                  />
+                </button>
+              </span>
             </div>
           )}
         </div>
