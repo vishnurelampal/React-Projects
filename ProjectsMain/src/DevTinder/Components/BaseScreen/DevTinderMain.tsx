@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "../../Redux/store";
 import DashboardMain from "../Dashboard/DashboardMain";
+import Logout from "../Dashboard/Logout";
 import { PostLoginMainScreen } from "../Dashboard/PostLoginMainScreen";
 import Profile from "../Dashboard/Profile";
 import Login from "../LoginComponents/Login";
@@ -16,6 +17,7 @@ const appRouter = createBrowserRouter([
         children: [
           { element: <Profile />, path: "/profile" },
           { element: <DashboardMain />, path: "/home" },
+          { element: <Logout />, path: "/logout" },
         ],
       },
     ],

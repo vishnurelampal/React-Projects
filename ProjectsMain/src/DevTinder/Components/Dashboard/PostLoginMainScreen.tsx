@@ -23,7 +23,9 @@ export const PostLoginMainScreen = () => {
         <div className="w-50 h-22.5">
           <ZindlerLogo />
         </div>
-        <Header navigation={navigationObject} />
+        <div className="mt-2">
+          <Header navigation={navigationObject} />
+        </div>
       </header>
       <Outlet />
     </>

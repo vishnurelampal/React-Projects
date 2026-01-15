@@ -22,13 +22,10 @@ const Header = ({ navigation }: HeaderNav) => {
         </Link>
         <Link to={`/${navigation.second}`}>
           <li>{navigation.second}</li>
-        </Link>{" "}
+        </Link>
         <Link to={`/${navigation.third}`}>
           <li>{navigation.third}</li>
-        </Link>{" "}
-        <Link to={`/${navigation.first}`}>
-          <li>{navigation.first}</li>
-        </Link>{" "}
+        </Link>
         <Link to={`/${navigation.fourth}`}>
           <li>{navigation.fourth}</li>
         </Link>
